@@ -3,7 +3,7 @@
 #define OBJECTALLOCATORH
 //---------------------------------------------------------------------------
 
-#include <string>
+#include <cstring>
 #include <iostream>
 
 // If the client doesn't specify these:
@@ -19,8 +19,10 @@ public:
 		E_NO_MEMORY,      // out of physical memory (operator new fails)
 		E_NO_PAGES,       // out of logical memory (max pages has been reached)
 		E_BAD_BOUNDARY,   // block address is on a page, but not on any block-boundary
+		E_BAD_ADDRESS,	  // address is not on a page
 		E_MULTIPLE_FREE,  // block has already been freed
-		E_CORRUPTED_BLOCK // block has been corrupted (pad bytes have been overwritten)
+		E_CORRUPTED_BLOCK,// block has been corrupted (pad bytes have been overwritten)
+		E_NO_OBJECTS	  // max object is reached TODO:LOOKATTHIS
 	};
 
 	OAException(OA_EXCEPTION ErrCode, const std::string& Message) : error_code_(ErrCode), message_(Message) {};
@@ -61,6 +63,7 @@ struct OAConfig
 			else if (type_ == hbExternal)
 				size_ = EXTERNAL_HEADER_SIZE;
 		};
+
 	};
 
 	OAConfig(bool UseCPPMemManager = false,
@@ -184,10 +187,23 @@ private:
 	OAStats myStats;
 
 	// For easily going through the memory
+	unsigned int leftPageSectionSize;
+	unsigned int interPageSectionSize;
+	unsigned int rightPageSectionSize;
 
+	// My helper functions
+	void initialize_page(GenericObject* pageBegin);
+	void set_mem_and_move(unsigned char** begin, int value, size_t size);
+	void set_non_data_block_pattern(unsigned char** begin, size_t alignSize);
+	void move_freelist(unsigned char* position);
+	bool is_object_in_free_list(void* Object);
 
+	// Free debug checks
+	void check_boundary(unsigned char* Object);
+	void check_double_free(unsigned char* Object);
+	void check_corruption(unsigned char* Object);
 
-										// Make private to prevent copy construction and assignment
+	// Make private to prevent copy construction and assignment
 	ObjectAllocator(const ObjectAllocator &oa);
 	ObjectAllocator &operator=(const ObjectAllocator &oa);
 };
