@@ -1,0 +1,82 @@
+Object size = 24, Page size = 120, Pad bytes = 2, ObjectsPerP <
+Alignment = 0, LeftAlign = 0, InterAlign = 0, HeaderBlocks =  <
+Pages in use: 3, Objects in use: 12, Available objects: 0, Al <
+XXXXXXXX						      <
+  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19  <
+ XX XX XX XX XX XX XX XX DD DD XX XX XX XX XX XX XX XX BB BB  <
+ BB BB DD DD DD DD XX XX XX XX XX XX XX XX BB BB BB BB BB BB  <
+ DD DD XX XX XX XX XX XX XX XX BB BB BB BB BB BB BB BB BB BB  <
+ XX XX XX XX XX XX BB BB BB BB BB BB BB BB BB BB BB BB BB BB  <
+							      <
+XXXXXXXX						      <
+  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19  <
+ XX XX XX XX XX XX XX XX DD DD XX XX XX XX XX XX XX XX BB BB  <
+ BB BB DD DD DD DD XX XX XX XX XX XX XX XX BB BB BB BB BB BB  <
+ DD DD XX XX XX XX XX XX XX XX BB BB BB BB BB BB BB BB BB BB  <
+ XX XX XX XX XX XX BB BB BB BB BB BB BB BB BB BB BB BB BB BB  <
+							      <
+XXXXXXXX						      <
+  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19  <
+ XX XX XX XX XX XX XX XX DD DD XX XX XX XX XX XX XX XX BB BB  <
+ BB BB DD DD DD DD XX XX XX XX XX XX XX XX BB BB BB BB BB BB  <
+ DD DD XX XX XX XX XX XX XX XX BB BB BB BB BB BB BB BB BB BB  <
+ XX XX XX XX XX XX BB BB BB BB BB BB BB BB BB BB BB BB BB BB  <
+							      <
+Pages in use: 3, Objects in use: 4, Available objects: 8, All <
+XXXXXXXX						      <
+  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19  <
+ XX XX XX XX XX XX XX XX DD DD XX XX XX XX XX XX XX XX CC CC  <
+ CC CC DD DD DD DD XX XX XX XX XX XX XX XX CC CC CC CC CC CC  <
+ DD DD XX XX XX XX XX XX XX XX CC CC CC CC CC CC CC CC CC CC  <
+ XX XX XX XX XX XX CC CC CC CC CC CC CC CC CC CC CC CC CC CC  <
+							      <
+XXXXXXXX						      <
+  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19  <
+ XX XX XX XX XX XX XX XX DD DD XX XX XX XX XX XX XX XX BB BB  <
+ BB BB DD DD DD DD XX XX XX XX XX XX XX XX BB BB BB BB BB BB  <
+ DD DD XX XX XX XX XX XX XX XX BB BB BB BB BB BB BB BB BB BB  <
+ XX XX XX XX XX XX BB BB BB BB BB BB BB BB BB BB BB BB BB BB  <
+							      <
+XXXXXXXX						      <
+  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19  <
+ XX XX XX XX XX XX XX XX DD DD XX XX XX XX XX XX XX XX CC CC  <
+ CC CC DD DD DD DD XX XX XX XX XX XX XX XX CC CC CC CC CC CC  <
+ DD DD XX XX XX XX XX XX XX XX CC CC CC CC CC CC CC CC CC CC  <
+ XX XX XX XX XX XX CC CC CC CC CC CC CC CC CC CC CC CC CC CC  <
+							      <
+Pages in use: 1, Objects in use: 4, Available objects: 0, All <
+XXXXXXXX						      <
+  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19  <
+ XX XX XX XX XX XX XX XX DD DD XX XX XX XX XX XX XX XX BB BB  <
+ BB BB DD DD DD DD XX XX XX XX XX XX XX XX BB BB BB BB BB BB  <
+ DD DD XX XX XX XX XX XX XX XX BB BB BB BB BB BB BB BB BB BB  <
+ XX XX XX XX XX XX BB BB BB BB BB BB BB BB BB BB BB BB BB BB  <
+							      <
+Pages in use: 1, Objects in use: 1, Available objects: 3, All <
+XXXXXXXX						      <
+  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19  <
+ XX XX XX XX XX XX XX XX DD DD XX XX XX XX XX XX XX XX BB BB  <
+ BB BB DD DD DD DD XX XX XX XX XX XX XX XX CC CC CC CC CC CC  <
+ DD DD XX XX XX XX XX XX XX XX CC CC CC CC CC CC CC CC CC CC  <
+ XX XX XX XX XX XX CC CC CC CC CC CC CC CC CC CC CC CC CC CC  <
+							      <
+Pages in use: 0, Objects in use: 0, Available objects: 0, All <
+							      <
+							      <
+Pages in use: 1, Objects in use: 1, Available objects: 3, All <
+XXXXXXXX						      <
+  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19  <
+ XX XX XX XX XX XX XX XX DD DD XX XX XX XX XX XX XX XX AA AA  <
+ AA AA DD DD DD DD XX XX XX XX XX XX XX XX AA AA AA AA AA AA  <
+ DD DD XX XX XX XX XX XX XX XX AA AA AA AA AA AA AA AA AA AA  <
+ XX XX XX XX XX XX BB BB BB BB BB BB BB BB BB BB BB BB BB BB  <
+							      <
+Pages in use: 1, Objects in use: 0, Available objects: 4, All <
+XXXXXXXX						      <
+  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19  <
+ XX XX XX XX XX XX XX XX DD DD XX XX XX XX XX XX XX XX AA AA  <
+ AA AA DD DD DD DD XX XX XX XX XX XX XX XX AA AA AA AA AA AA  <
+ DD DD XX XX XX XX XX XX XX XX AA AA AA AA AA AA AA AA AA AA  <
+ XX XX XX XX XX XX CC CC CC CC CC CC CC CC CC CC CC CC CC CC  <
+							      <
+Pages in use: 0, Objects in use: 0, Available objects: 0, All <
