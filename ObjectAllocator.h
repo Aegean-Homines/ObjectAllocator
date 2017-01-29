@@ -63,7 +63,6 @@ struct OAConfig
 			else if (type_ == hbExternal)
 				size_ = EXTERNAL_HEADER_SIZE;
 		};
-
 	};
 
 	OAConfig(bool UseCPPMemManager = false,
@@ -196,12 +195,20 @@ private:
 	void set_mem_and_move(unsigned char** begin, int value, size_t size);
 	void set_non_data_block_pattern(unsigned char** begin, size_t alignSize);
 	void move_freelist(unsigned char* position);
-	bool is_object_in_free_list(void* Object);
+	bool is_object_in_free_list(void* Object) const;
+	void free_external_header(unsigned char* object);
 
 	// Free debug checks
-	void check_boundary(unsigned char* Object);
-	void check_double_free(unsigned char* Object);
-	void check_corruption(unsigned char* Object);
+	void check_boundary(unsigned char* Object) const;
+	void check_double_free(unsigned char* Object) const;
+	void check_corruption(unsigned char* Object) const;
+
+	// Copied from driver
+	void PrintConfig();
+	void DumpPages(unsigned width = 32);
+
+	// Extra credit
+	void FreePage(GenericObject* pageHead);
 
 	// Make private to prevent copy construction and assignment
 	ObjectAllocator(const ObjectAllocator &oa);
