@@ -203,10 +203,6 @@ private:
 	void check_double_free(unsigned char* Object) const;
 	void check_corruption(unsigned char* Object) const;
 
-	// Copied from driver
-	void PrintConfig();
-	void DumpPages(unsigned width = 32);
-
 	// Extra credit
 	void FreePage(GenericObject* pageHead);
 

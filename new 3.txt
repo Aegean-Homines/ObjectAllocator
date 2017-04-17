@@ -1,0 +1,98 @@
+template <typename keyType, typename valueType>
+class HashItem{
+	keyType key;
+	valueType val;
+	HashItem* next;
+public:
+	HashItem(keyType iKey, valueType iVal): key(iKey), val(iVal), next(NULL){}
+	keyType GetKey(){ return key; }
+	valueType GetValue(){ return val; }
+	HashItem* GetNext(){ return next; }
+	void SetKey(keyType key){ this->key = key; }
+	void SetValue(valueType val){ this->val = val; }
+	void SetNext(HashItem* next){ this->next = next; }
+	
+}
+
+template <typename keyType, typename valueType>
+class HashMap{
+
+	unsigned int size;
+	HashItem** table;
+	
+	unsigned int HashFunc(keyType key){
+		return key % size;
+	}
+	
+public:
+	HashMap(unsigned int size): size(size)
+	{
+		table = new HashItem*[size];
+		memset(table, NULL, size);
+	}
+	
+	void Insert(keyType key, valueType value){
+		unsigned int hashVal = HashFunc(key);
+		if(!table[hashVal]){
+			table[hashVal] = new HashItem(key, value);
+		}else{
+			HashItem* insertLocation = table[hashVal];
+			while(insertLocation->GetNext() && insertLocation->GetKey() != key)
+				insertLocation = insertLocation->GetNext();
+				
+			if(insertLocation->GetKey() == key){
+				insertLocation->SetValue(value);
+			}else{
+				insertLocation->SetNext(new HashItem(key, value));
+			}
+			
+		}	
+	}
+	
+	valueType Get(keyType key){
+		unsigned int hashVal = HashFunc(key);
+		if(!table[hashVal]){
+			return -1;
+		}
+		
+		HashItem* itemLocation = table[hashVal];
+		while(itemLocation && itemLocation->GetKey() != key)
+			itemLocation = itemLocation->GetNext();
+			
+		if(!itemLocation){
+			return -1;
+		}else{
+			return itemLocation->GetValue();
+		}
+		
+	}
+	
+	void Remove(keyType key){
+		unsigned int hashVal = HashFunc(key);
+		if(table[hashVal]){
+			HashItem* prevItemLocation = NULL;
+			HashItem* currentItemLocation = table[hashVal];
+			while(currentItemLocation && currentItemLocation->GetKey() != key){
+				prevItemLocation = currentItemLocation;
+				currentItemLocation = currentItemLocation->GetNext();
+			}
+			
+			if(currentItemLocation){
+				if(prevItemLocation){
+					prevItemLocation->SetNext(currentItemLocation->GetNext());
+					delete currentItemLocation;
+				}else{
+					delete currentItemLocation;
+					table[hashVal] = NULL;
+				}
+
+			}
+			
+		}
+	}
+	
+	
+
+	
+
+}

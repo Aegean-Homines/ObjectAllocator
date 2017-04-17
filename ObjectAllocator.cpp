@@ -1,3 +1,14 @@
+/*!
+* \file ObjectAllocator.h
+* \author Egemen Koku
+* \date 29 Jan 2017
+* \brief Implementation of @b ObjectAllocator.h
+*
+* \copyright Digipen Institute of Technology
+* \mainpage Object Allocator Implementation
+*
+*/
+
 #include "ObjectAllocator.h"
 #include <iostream>
 
@@ -7,6 +18,11 @@ using std::endl;
 #define OUT_OF_LOGICAL_MEMORY_ERROR "Cannot allocate new page - max pages has been reached"
 #define OUT_OF_PHYSICAL_MEMORY_ERROR "Cannot allocate new page - out of physical memory: " + std::string(e.what())
 
+/**
+* @brief Constructor for ObjectAllocator class
+* @param ObjectSize size of the object to store
+* @param config Config file for the memory manager
+*/
 ObjectAllocator::ObjectAllocator(size_t ObjectSize, const OAConfig & config) : PageList_(NULL), FreeList_(NULL), myConfig(config)
 {
 	// Save each object's size
@@ -38,6 +54,9 @@ ObjectAllocator::ObjectAllocator(size_t ObjectSize, const OAConfig & config) : P
 	allocate_new_page();
 }
 
+/**
+* @brief Destrutor for ObjectAllocator class
+*/
 ObjectAllocator::~ObjectAllocator()
 {
 
@@ -60,6 +79,10 @@ ObjectAllocator::~ObjectAllocator()
 	}
 }
 
+/**
+* @brief Allocate function for allocating memory block
+* @param label The label of the memory block
+*/
 void * ObjectAllocator::Allocate(const char * label)
 {
 	if (myConfig.UseCPPMemManager_)
@@ -152,6 +175,10 @@ void * ObjectAllocator::Allocate(const char * label)
 	return objectToBeReturned;
 }
 
+/**
+* Deallocation of a memory block
+* @param Object object to be deallocated
+*/
 void ObjectAllocator::Free(void * Object)
 {
 	if (myConfig.UseCPPMemManager_)
@@ -206,6 +233,11 @@ void ObjectAllocator::Free(void * Object)
 
 }
 
+/**
+* Prints out memory content and calls fn for each active mem block
+* @param fn Callback function for active memories
+* @return total amount of active memory
+*/
 unsigned ObjectAllocator::DumpMemoryInUse(DUMPCALLBACK fn) const
 {
 	unsigned counter = 0;
@@ -229,6 +261,11 @@ unsigned ObjectAllocator::DumpMemoryInUse(DUMPCALLBACK fn) const
 	return counter;
 }
 
+/**
+* Goes through all the pages and checks for corruption for each memory block
+* @param fn Callback function for each corrupted block
+* @return total amount of corrupted blocks
+*/
 unsigned ObjectAllocator::ValidatePages(VALIDATECALLBACK fn) const
 {
 	if (!myConfig.DebugOn_ || myConfig.PadBytes_ == 0)
@@ -261,6 +298,10 @@ unsigned ObjectAllocator::ValidatePages(VALIDATECALLBACK fn) const
 	return counter;
 }
 
+/**
+* Frees all empty pages
+* @return pages removed
+*/
 unsigned ObjectAllocator::FreeEmptyPages(void)
 {
 	GenericObject* prevPage = NULL;
@@ -304,36 +345,63 @@ unsigned ObjectAllocator::FreeEmptyPages(void)
 	return counter;
 }
 
+/**
+* Checks whether extra credit is implemented
+* @return is extra credit implemented or not
+*/
 bool ObjectAllocator::ImplementedExtraCredit(void)
 {
 	return false;
 }
 
+/**
+* Setter for debug state
+* @param State new debug state
+*/
 void ObjectAllocator::SetDebugState(bool State)
 {
 	myConfig.DebugOn_ = State;
 }
 
+/**
+* Getter for the FreeList_
+* @return FreeList_ pointer
+*/ 
 const void * ObjectAllocator::GetFreeList(void) const
 {
 	return FreeList_;
 }
 
+/**
+* Getter for the PageList_
+* @return PageList_ pointer
+*/
 const void * ObjectAllocator::GetPageList(void) const
 {
 	return PageList_;
 }
 
+/**
+* Getter for the config
+* @return config file of this allocator
+*/
 OAConfig ObjectAllocator::GetConfig(void) const
 {
 	return myConfig;
 }
 
+/**
+* Getter for the stats
+* @return FreeList_ pointer
+*/
 OAStats ObjectAllocator::GetStats(void) const
 {
 	return myStats;
 }
 
+/**
+* Helper function to allocate a new page when a page is full
+*/
 void ObjectAllocator::allocate_new_page(void)
 {
 	try {
@@ -366,6 +434,10 @@ void ObjectAllocator::allocate_new_page(void)
 	myStats.FreeObjects_ += myConfig.ObjectsPerPage_;
 }
 
+/**
+* Helper function to insert an object into the freelist
+* @param Object object to be inserted
+*/
 void ObjectAllocator::put_on_freelist(void * Object)
 {
 	GenericObject* nextObject = FreeList_;
@@ -373,6 +445,10 @@ void ObjectAllocator::put_on_freelist(void * Object)
 	FreeList_->Next = nextObject;
 }
 
+/**
+* Helper function to initialize a new page, filling it with initial data
+* @param pageListBegin head pointer to a page
+*/
 void ObjectAllocator::initialize_page(GenericObject* pageListBegin)
 {
 	// Leftmost block
@@ -418,12 +494,23 @@ void ObjectAllocator::initialize_page(GenericObject* pageListBegin)
 
 }
 
+/**
+* Helper function to set a memory block with a value and advance pointer by size
+* @param begin Pointer to the memory block pointer
+* @param value Memory block value to be set
+* @param size Size of the memory block
+*/
 void ObjectAllocator::set_mem_and_move(unsigned char ** begin, int value, size_t size)
 {
 	memset(*begin, value, size);
 	*begin += size;
 }
 
+/**
+* Helper function to set block pattern for the beginning part of a data block
+* @param begin Pointer to the memory block pointer
+* @param alignSize size of the alignment block
+*/
 void ObjectAllocator::set_non_data_block_pattern(unsigned char ** begin, size_t alignSize)
 {
 	// Left alignment
@@ -436,6 +523,10 @@ void ObjectAllocator::set_non_data_block_pattern(unsigned char ** begin, size_t 
 	//DumpPages(32);
 }
 
+/**
+* Helper function to advance freelist to the next node
+* @param position new position to advance to
+*/
 void ObjectAllocator::move_freelist(unsigned char* position)
 {
 	GenericObject* PrevBlock = FreeList_;
@@ -443,6 +534,11 @@ void ObjectAllocator::move_freelist(unsigned char* position)
 	FreeList_->Next = PrevBlock;
 }
 
+/**
+* Helper function to check whether an object is in the free list or not
+* @param Object object to be checked
+* @return Whether the object is in the free list or not
+*/
 bool ObjectAllocator::is_object_in_free_list(void * Object) const
 {
 	// Check through header first
@@ -469,6 +565,10 @@ bool ObjectAllocator::is_object_in_free_list(void * Object) const
 	return false;
 }
 
+/**
+* Helper function to free a previously allocated external header
+* @param Object object the header belongs to
+*/
 void ObjectAllocator::free_external_header(unsigned char * object)
 {
 	MemBlockInfo** blockInfoP = reinterpret_cast<MemBlockInfo**>(object);
@@ -480,9 +580,12 @@ void ObjectAllocator::free_external_header(unsigned char * object)
 	delete blockInfo;
 }
 
+/**
+* Helper function to check boundaries of an object
+* @param Object object to be checked
+*/
 void ObjectAllocator::check_boundary(unsigned char * Object) const
 {
-	// TODO: Try to find a solution without going through page headers
 	GenericObject* currentPage = PageList_;
 	unsigned char* currentPageBegin;
 	// Find the page this memory belongs to
@@ -508,6 +611,10 @@ void ObjectAllocator::check_boundary(unsigned char * Object) const
 
 }
 
+/**
+* Helper function to check whether an object is freed before or not
+* @param Object object to be checked
+*/
 void ObjectAllocator::check_double_free(unsigned char * Object) const
 {
 	// Check for double free
@@ -521,11 +628,15 @@ void ObjectAllocator::check_double_free(unsigned char * Object) const
 			throw OAException(OAException::E_MULTIPLE_FREE, "Object has been freed before: Multiple free");
 		}
 	}
-	else if (is_object_in_free_list(Object)) { // Go through the free list to see if this is free TODO: check if there is a O(1) solution
+	else if (is_object_in_free_list(Object)) {
 		throw OAException(OAException::E_MULTIPLE_FREE, "Object has been freed before: Multiple free");
 	}
 }
 
+/**
+* Helper function to check whether an object is corrupted
+* @param Object object to be checked
+*/
 void ObjectAllocator::check_corruption(unsigned char * Object) const
 {
 	if (myConfig.PadBytes_ == 0)
@@ -551,151 +662,10 @@ void ObjectAllocator::check_corruption(unsigned char * Object) const
 	}
 }
 
-void ObjectAllocator::PrintConfig()
-{
-	cout << "Object size = " << myStats.ObjectSize_;
-	cout << ", Page size = " << myStats.PageSize_;
-	cout << ", Pad bytes = " << myConfig.PadBytes_;
-	cout << ", ObjectsPerPage = " << myConfig.ObjectsPerPage_;
-	cout << ", MaxPages = " << myConfig.MaxPages_;
-	cout << ", MaxObjects = " << myConfig.ObjectsPerPage_ * myConfig.MaxPages_;
-	cout << endl;
-	cout << "Alignment = " << myConfig.Alignment_;
-	cout << ", LeftAlign = " << myConfig.LeftAlignSize_;
-	cout << ", InterAlign = " << myConfig.InterAlignSize_;
-	cout << ", HeaderBlocks = ";
-	if (myConfig.HBlockInfo_.type_ == OAConfig::hbNone)
-		cout << "None";
-	else if (myConfig.HBlockInfo_.type_ == OAConfig::hbBasic)
-		cout << "Basic";
-	else if (myConfig.HBlockInfo_.type_ == OAConfig::hbExtended)
-		cout << "Extended";
-	else if (myConfig.HBlockInfo_.type_ == OAConfig::hbExternal)
-		cout << "External";
-	cout << ", Header size = " << myConfig.HBlockInfo_.size_;
-	cout << endl;
-}
-
-void ObjectAllocator::DumpPages(unsigned width)
-{
-	const unsigned char *pages = reinterpret_cast<const unsigned char *>(PageList_);
-	const unsigned char *realpage = pages;
-
-	size_t header_size = myConfig.HBlockInfo_.size_;
-
-	while (pages)
-	{
-		unsigned count = 0;
-
-		printf("XXXXXXXX\n");
-
-		// print column header
-		for (unsigned j = 0; j < width; j++)
-			printf(" %2i", j);
-		printf("\n");
-
-		// "Next page" pointer in the page
-		for (unsigned j = 0; j < sizeof(void *); pages++, count++, j++)
-			printf(" %s", "XX");
-
-
-
-		// Left leading alignment bytes
-		if (myConfig.Alignment_ > 1)
-		{
-			// leading alignment block (if any)
-			for (unsigned j = 0; j < myConfig.LeftAlignSize_; count++, j++)
-			{
-				if (count >= width)
-				{
-					printf("\n");
-					count = 0;
-				}
-				printf(" %02X", *pages++);
-			}
-		}
-
-		// Dump each object and its associated info
-		for (unsigned int i = 0; i < myConfig.ObjectsPerPage_; i++)
-		{
-			// inter-block alignment (not on first block)
-			if (i > 0)
-			{
-				for (unsigned j = 0; j < myConfig.InterAlignSize_; count++, j++)
-				{
-					if (count >= width)
-					{
-						printf("\n");
-						count = 0;
-					}
-					printf(" %02X", *pages++);
-				}
-			}
-
-			// header block bytes
-			for (unsigned j = 0; j < header_size; count++, j++)
-			{
-				if (count >= width)
-				{
-					printf("\n");
-					count = 0;
-				}
-				printf(" %02X", *pages++);
-			}
-
-			// left padding
-			for (unsigned j = 0; j < myConfig.PadBytes_; count++, j++)
-			{
-				if (count >= width)
-				{
-					printf("\n");
-					count = 0;
-				}
-				printf(" %02X", *pages++);
-			}
-
-			// possible next pointer (zero it out)
-			for (unsigned j = 0; j < sizeof(void *); count++, pages++, j++)
-			{
-				if (count >= width)
-				{
-					printf("\n");
-					count = 0;
-				}
-
-				printf(" %s", "XX");
-			}
-
-			// remaining bytes
-			for (unsigned j = 0; j < myStats.ObjectSize_ - sizeof(void *); count++, j++)
-			{
-				if (count >= width)
-				{
-					printf("\n");
-					count = 0;
-				}
-				printf(" %02X", *pages++);
-			}
-
-			// right pad bytes
-			for (unsigned j = 0; j < myConfig.PadBytes_; count++, j++)
-			{
-				if (count >= width)
-				{
-					printf("\n");
-					count = 0;
-				}
-				printf(" %02X", *pages++);
-			}
-
-		}
-		printf("\n\n");
-
-		pages = reinterpret_cast<const unsigned char *>((reinterpret_cast<const GenericObject *>(realpage))->Next);
-		realpage = pages;
-	}
-}
-
+/**
+* Helper function to free a page from the page list
+* @param pageHead head pointer of a page
+*/
 void ObjectAllocator::FreePage(GenericObject * pageHead)
 {
 	unsigned char * pageBegin = reinterpret_cast<unsigned char*>(pageHead);

@@ -421,9 +421,39 @@ Most employees in use: 32
 Checking for leaks...
 Detected memory leaks!
 Dumping objects ->
-Block at 0x00000000, 10 bytes long.
- Data: <          > A0 B2 03 00 06 00 00 00 20 00
-Object dump complete. [0]
+Block at 0x00000000, 40 bytes long.
+ Data: <        Eton-Hog> BB BB BB BB BB BB BB BB 45 74 6F 6E 2D 48 6F 67
+Block at 0x00000000, 40 bytes long.
+ Data: <        St.Hubbi> BB BB BB BB BB BB BB BB 53 74 2E 48 75 62 62 69
+Block at 0x00000000, 40 bytes long.
+ Data: <        Besser  > BB BB BB BB BB BB BB BB 42 65 73 73 65 72 00 BB
+Block at 0x00000000, 40 bytes long.
+ Data: <        Savage  > BB BB BB BB BB BB BB BB 53 61 76 61 67 65 00 BB
+Block at 0x00000000, 40 bytes long.
+ Data: <        Faith   > BB BB BB BB BB BB BB BB 46 61 69 74 68 00 BB BB
+Block at 0x00000000, 40 bytes long.
+ Data: <        Waters  > BB BB BB BB BB BB BB BB 57 61 74 65 72 73 00 BB
+Block at 0x00000000, 40 bytes long.
+ Data: <        Mason   > BB BB BB BB BB BB BB BB 4D 61 73 6F 6E 00 BB BB
+Block at 0x00000000, 40 bytes long.
+ Data: <        Floyd   > BB BB BB BB BB BB BB BB 46 6C 6F 79 64 00 BB BB
+Block at 0x00000000, 40 bytes long.
+ Data: <        Fufkin  > BB BB BB BB BB BB BB BB 46 75 66 6B 69 6E 00 BB
+Block at 0x00000000, 40 bytes long.
+ Data: <        Pettibon> BB BB BB BB BB BB BB BB 50 65 74 74 69 62 6F 6E
+Block at 0x00000000, 40 bytes long.
+ Data: <        Pudding > BB BB BB BB BB BB BB BB 50 75 64 64 69 6E 67 00
+Block at 0x00000000, 40 bytes long.
+ Data: <        Upham   > BB BB BB BB BB BB BB BB 55 70 68 61 6D 00 BB BB
+Block at 0x00000000, 40 bytes long.
+ Data: <        Fleckman> BB BB BB BB BB BB BB BB 46 6C 65 63 6B 6D 61 6E
+Block at 0x00000000, 40 bytes long.
+ Data: <        Smalls  > BB BB BB BB BB BB BB BB 53 6D 61 6C 6C 73 00 BB
+Block at 0x00000000, 40 bytes long.
+ Data: <        Shrimpto> BB BB BB BB BB BB BB BB 53 68 72 69 6D 70 74 6F
+Block at 0x00000000, 40 bytes long.
+ Data: <        Tufnel  > BB BB BB BB BB BB BB BB 54 75 66 6E 65 6C 00 BB
+Object dump complete. [16]
 
 Checking for leaks...
 No leaks detected.
@@ -448,7 +478,6 @@ XXXXXXXX
  BB BB BB BB BB BB BB DD DD DD DD DD DD DD DD 01 00 00 00 01 DD DD DD DD DD DD DD DD XX XX XX XX
  XX XX XX XX BB BB BB BB BB BB BB BB BB BB BB BB BB BB BB BB DD DD DD DD DD DD DD DD
 
-Block at 0x00000000, 10 bytes long.
 Number of corruptions: 0
 
 Pages in use: 2, Objects in use: 7, Available objects: 1, Allocs: 7, Frees: 0
@@ -470,8 +499,9 @@ XXXXXXXX
  BB BB BB BB BB BB BB EE EE EE EE EE EE DD DD 01 00 00 00 01 FF FF FF FF FF FF DD DD XX XX XX XX
  XX XX XX XX BB BB BB BB BB BB BB BB BB BB BB BB BB BB BB BB DD DD DD DD DD DD DD DD
 
-Block at 0x00000000, 10 bytes long.
-Number of corruptions: 0
+Block at 0x00000000, 24 bytes long.
+Block at 0x00000000, 24 bytes long.
+Number of corruptions: 2
 
 Pages in use: 2, Objects in use: 7, Available objects: 1, Allocs: 7, Frees: 0
 XXXXXXXX
@@ -492,8 +522,10 @@ XXXXXXXX
  BB BB BB BB BB BB BB EE EE EE EE EE EE DD DD 01 00 00 00 01 FF FF FF FF FF FF DD DD XX XX XX XX
  XX XX XX XX BB BB BB BB BB BB BB BB BB BB BB BB BB BB BB BB DD DD DD DD DD DD DD DD
 
-Block at 0x00000000, 10 bytes long.
-Number of corruptions: 0
+Block at 0x00000000, 24 bytes long.
+Block at 0x00000000, 24 bytes long.
+Block at 0x00000000, 24 bytes long.
+Number of corruptions: 3
 
 Object size = 24, Page size = 29008, Pad bytes = 0, ObjectsPerPage = 1000, MaxPages = 10, MaxObjects = 10000
 Alignment = 0, LeftAlign = 0, InterAlign = 0, HeaderBlocks = Basic, Header size = 5
@@ -501,3 +533,9 @@ Pages in use: 10, Objects in use: 10000, Available objects: 0, Allocs: 10000, Fr
 Object size = 24, Page size = 32008, Pad bytes = 0, ObjectsPerPage = 1000, MaxPages = 10, MaxObjects = 10000
 Alignment = 0, LeftAlign = 0, InterAlign = 0, HeaderBlocks = Extended, Header size = 8
 Pages in use: 10, Objects in use: 10000, Available objects: 0, Allocs: 10000, Frees: 0
+Object size = 24, Page size = 32008, Pad bytes = 0, ObjectsPerPage = 1000, MaxPages = 10, MaxObjects = 10000
+Alignment = 0, LeftAlign = 0, InterAlign = 0, HeaderBlocks = External, Header size = 8
+Pages in use: 10, Objects in use: 10000, Available objects: 0, Allocs: 10000, Frees: 0
+
+============================== StressBadBoundary...
+Stressing: 1 pages with 100000 objects per page
